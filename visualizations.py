@@ -4,6 +4,8 @@ import json
 import os
 import requests
 
+# need to output the results of the calculations to their own text files!
+
 # calculation 1: gender expectancy gap (already a calculation) vs covid cases scatterplot
 
 # calculation 2: covid cases / total population by country
