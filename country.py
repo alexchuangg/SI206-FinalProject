@@ -86,7 +86,7 @@ def main():
 
     create_population_table(countries, cur, conn)
     create_gap_expectancies_table(cur, conn)
-    print('added 25 rows to database')
+    print('added 25 rows of both tables to database')
 
 if __name__ == "__main__":
     main()
