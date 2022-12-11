@@ -69,7 +69,7 @@ def create_gap_expectancies_table(cur, conn):
     for gap in gaps:
         gap_expectancies.append(gap[0])
 
-    with open('gap_expectancies_calcs', 'w') as f:
+    with open('gap_expectancies_calcs.txt', 'w') as f:
         f.write("country_id, gap_expectancies")
         f.write('\n')
         for i in range(len(gap_expectancies)):
