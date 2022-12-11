@@ -69,6 +69,13 @@ def create_gap_expectancies_table(cur, conn):
     for gap in gaps:
         gap_expectancies.append(gap[0])
 
+    with open('gap_expectancies_calcs', 'w') as f:
+        f.write("country_id, gap_expectancies")
+        f.write('\n')
+        for i in range(len(gap_expectancies)):
+            f.write(str(country_ids[i]) + ", " + str(gap_expectancies[i]))
+            f.write('\n')
+    f.close()
 
     for i in range(len(ids)):
         cur.execute("INSERT OR IGNORE INTO lifespan_gaps (country_id,gap_expectancies) VALUES (?,?)",(country_ids[i],gap_expectancies[i]))

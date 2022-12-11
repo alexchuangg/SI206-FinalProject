@@ -8,9 +8,27 @@ import matplotlib.pyplot as plt
 
 # need to output the results of the calculations to their own text files!
 
-# calculation 1: gender expectancy gap (already a calculation) vs covid cases scatterplot
+# calculation 1: gender expectancy gap (already a calculation) vs internet users scatterplot
+def gender_gap_vs_internet_users(cur):
+    gender_expectancies = []
+    internet_users = []
 
-# calculation 2: covid cases / total population by country
+    cur.execute("SELECT lifespan_gaps.gap_expectancies, country_data.internet_users FROM lifespan_gaps JOIN country_data ON lifespan_gaps.country_id = country_data.country_id")
+    data = cur.fetchall()
+
+    for country in data:
+        gender_expectancies.append(country[0])
+        internet_users.append(country[1])
+
+    plt.scatter(gender_expectancies, internet_users)
+    plt.xlabel('Yearly Lifespan Differences between Women and Men')
+    plt.ylabel('The Percentage of Internet Users in each Country')
+    plt.title('Gender Lifespan Differenes vs Internet Usage')
+    plt.show()
+
+    
+
+# calculation 2: covid percentage vs internet users percentage
 
 # calculation 3: group countries by AQI category and create a bar graph of average the population size
 # AQI categories: 0-50 = good, 51-100 = moderate, 101-150 = Unhealthy for some, 151-200 = Unhealthy, 201-300 = Very Unhealthy
@@ -62,18 +80,18 @@ def population_per_aqi_category(cur):
         very_unhealthy_total += country[1]
     very_unhealthy_avg = round(very_unhealthy_total/len(aq_very_unhealthy))
 
-    with open('aqi_vs_population.txt', 'w') as f:
-        f.write("The average population size for a country with good air quality is " + str(good_avg) + ".")
-        f.write('\n')
-        f.write("The average population size for a country with moderate air quality is " + str(moderate_avg) + ".")
-        f.write('\n')
-        f.write("The average population size for a country with unhealthy (to sensitive groups) air quality is " + str(unhealthy_sensitive_avg) + ".")
-        f.write('\n')
-        f.write("The average population size for a country with unhealthy (to all groups) air quality is " + str(unhealthy_avg) + ".")
-        f.write('\n')
-        f.write("The average population size for a country with very unhealthy air quality is " + str(very_unhealthy_avg) + ".")
-        f.write('\n')
-    f.close()
+    with open('aqi_vs_population.txt', 'w') as a:
+        a.write("The average population size for a country with good air quality is " + str(good_avg) + ".")
+        a.write('\n')
+        a.write("The average population size for a country with moderate air quality is " + str(moderate_avg) + ".")
+        a.write('\n')
+        a.write("The average population size for a country with unhealthy (to sensitive groups) air quality is " + str(unhealthy_sensitive_avg) + ".")
+        a.write('\n')
+        a.write("The average population size for a country with unhealthy (to all groups) air quality is " + str(unhealthy_avg) + ".")
+        a.write('\n')
+        a.write("The average population size for a country with very unhealthy air quality is " + str(very_unhealthy_avg) + ".")
+        a.write('\n')
+    a.close()
 
     x_axis = ["Good", "Moderate", "Unhealthy (sensitive)", "Unhealthy (all)", "Very Unhealthy"]
     y_axis = [good_avg, moderate_avg, unhealthy_sensitive_avg, unhealthy_avg, very_unhealthy_avg]
@@ -90,6 +108,7 @@ def main():
     conn = sqlite3.connect(path+'/country.db')
     cur = conn.cursor()
 
+    gender_gap_vs_internet_users(cur)
     population_per_aqi_category(cur)
 
 if __name__ == "__main__":

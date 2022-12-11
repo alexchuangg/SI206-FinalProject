@@ -23,6 +23,8 @@ def create_covid_table(countries, cur, conn):
 
     cur.execute('SELECT country_id FROM covid_data WHERE country_id  = (SELECT MAX(country_id) FROM covid_data)')
     
+    
+
     count = 0
 
     first = cur.fetchone()
