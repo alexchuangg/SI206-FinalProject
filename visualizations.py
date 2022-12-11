@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 # calculation 3: group countries by AQI category and create a bar graph of average the population size
 # AQI categories: 0-50 = good, 51-100 = moderate, 101-150 = Unhealthy for some, 151-200 = Unhealthy, 201-300 = Very Unhealthy
 
-def population_per_aqi_category(cur, conn):
+def population_per_aqi_category(cur):
     aq_good = []
     aq_moderate = []
     aq_unhealthy_sensitive = []
@@ -90,7 +90,7 @@ def main():
     conn = sqlite3.connect(path+'/country.db')
     cur = conn.cursor()
 
-    population_per_aqi_category(cur, conn)
+    population_per_aqi_category(cur)
 
 if __name__ == "__main__":
     main()
