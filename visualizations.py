@@ -3,6 +3,8 @@ import sqlite3
 import json
 import os
 import requests
+import matplotlib
+import matplotlib.pyplot as plt
 
 # need to output the results of the calculations to their own text files!
 
@@ -61,17 +63,26 @@ def population_per_aqi_category(cur, conn):
     very_unhealthy_avg = round(very_unhealthy_total/len(aq_very_unhealthy))
 
     with open('aqi_vs_population.txt', 'w') as f:
-        f.write("The average population size for a country with good air quality is " + str(good_avg))
+        f.write("The average population size for a country with good air quality is " + str(good_avg) + ".")
         f.write('\n')
-        f.write("The average population size for a country with moderate air quality is " + str(moderate_avg))
+        f.write("The average population size for a country with moderate air quality is " + str(moderate_avg) + ".")
         f.write('\n')
-        f.write("The average population size for a country with unhealthy (to sensitive groups) air quality is " + str(unhealthy_sensitive_avg))
+        f.write("The average population size for a country with unhealthy (to sensitive groups) air quality is " + str(unhealthy_sensitive_avg) + ".")
         f.write('\n')
-        f.write("The average population size for a country with unhealthy (to all groups) air quality is " + str(unhealthy_avg))
+        f.write("The average population size for a country with unhealthy (to all groups) air quality is " + str(unhealthy_avg) + ".")
         f.write('\n')
-        f.write("The average population size for a country with very unhealthy air quality is " + str(very_unhealthy_avg))
+        f.write("The average population size for a country with very unhealthy air quality is " + str(very_unhealthy_avg) + ".")
         f.write('\n')
     f.close()
+
+    x_axis = ["Good", "Moderate", "Unhealthy (sensitive)", "Unhealthy (all)", "Very Unhealthy"]
+    y_axis = [good_avg, moderate_avg, unhealthy_sensitive_avg, unhealthy_avg, very_unhealthy_avg]
+
+    plt.bar(x_axis, y_axis, color = 'orange')
+    plt.xlabel('Air Quality Index Category')
+    plt.ylabel('Average Country Population Size')
+    plt.title('Air Quality vs Average Country Population Size')
+    plt.show()
 
 
 def main():
