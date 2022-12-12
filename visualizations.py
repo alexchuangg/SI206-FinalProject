@@ -63,8 +63,8 @@ def covid_vs_internet_users(cur):
 
     for i in range(len(covid_totals)):
         if covid_totals[i] > 0:
-            average = covid_totals[i] / (population[i]*10)
-            covid_percents.append(average)
+            percentage = covid_totals[i] / (population[i]*10)
+            covid_percents.append(percentage)
 
     with open('covid_percentages_calcs.txt', 'w') as c:
         c.write("country_id, covid_percents")
