@@ -88,7 +88,7 @@ def population_per_aqi_category(cur):
     aq_moderate = []
     aq_unhealthy_sensitive = []
     aq_unhealthy = []
-    aq_very_unhealthy = []
+    # aq_very_unhealthy = []
 
     cur.execute("SELECT air_quality.air_quality_index, country_data.population FROM air_quality JOIN country_data ON air_quality.country_id = country_data.country_id")
     data = cur.fetchall()
@@ -102,8 +102,8 @@ def population_per_aqi_category(cur):
             aq_unhealthy_sensitive.append(country)
         elif country[0] >= 151 and country[0] <= 200:
             aq_unhealthy.append(country)
-        elif country[0] >= 201 and country[0] <= 300:
-            aq_very_unhealthy.append(country)
+        # elif country[0] >= 201 and country[0] <= 300:
+        #     aq_very_unhealthy.append(country)
 
 
     good_total = 0
@@ -126,10 +126,10 @@ def population_per_aqi_category(cur):
         unhealthy_total += (country[1]*1000)
     unhealthy_avg = round(unhealthy_total/len(aq_unhealthy))
 
-    very_unhealthy_total = 0
-    for country in aq_very_unhealthy:
-        very_unhealthy_total += (country[1]*1000)
-    very_unhealthy_avg = round(very_unhealthy_total/len(aq_very_unhealthy))
+    # very_unhealthy_total = 0
+    # for country in aq_very_unhealthy:
+    #     very_unhealthy_total += (country[1]*1000)
+    # very_unhealthy_avg = round(very_unhealthy_total/len(aq_very_unhealthy))
 
     with open('aqi_vs_population.txt', 'w') as a:
         a.write("The average population size for a country with good air quality is " + str(good_avg) + ".")
@@ -140,12 +140,12 @@ def population_per_aqi_category(cur):
         a.write('\n')
         a.write("The average population size for a country with unhealthy (to all groups) air quality is " + str(unhealthy_avg) + ".")
         a.write('\n')
-        a.write("The average population size for a country with very unhealthy air quality is " + str(very_unhealthy_avg) + ".")
-        a.write('\n')
+        # a.write("The average population size for a country with very unhealthy air quality is " + str(very_unhealthy_avg) + ".")
+        # a.write('\n')
     a.close()
 
-    x_axis = ["Good", "Moderate", "Unhealthy (sensitive)", "Unhealthy (all)", "Very Unhealthy"]
-    y_axis = [good_avg, moderate_avg, unhealthy_sensitive_avg, unhealthy_avg, very_unhealthy_avg]
+    x_axis = ["Good", "Moderate", "Unhealthy (sensitive)", "Unhealthy (all)"]
+    y_axis = [good_avg, moderate_avg, unhealthy_sensitive_avg, unhealthy_avg]
 
     plt.bar(x_axis, y_axis, color = 'orange')
     plt.xlabel('Air Quality Index Category')

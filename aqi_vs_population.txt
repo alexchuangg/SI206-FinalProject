@@ -1,5 +1,4 @@
-The average population size for a country with good air quality is 74450788.
-The average population size for a country with moderate air quality is 29544967.
-The average population size for a country with unhealthy (to sensitive groups) air quality is 30222462.
-The average population size for a country with unhealthy (to all groups) air quality is 139250417.
-The average population size for a country with very unhealthy air quality is 2963000.
+The average population size for a country with good air quality is 69915206.
+The average population size for a country with moderate air quality is 19780485.
+The average population size for a country with unhealthy (to sensitive groups) air quality is 69771545.
+The average population size for a country with unhealthy (to all groups) air quality is 124137538.
